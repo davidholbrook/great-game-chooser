@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  background: #333333;
+}
+
+.gamelist{
+  background: rgba(216,216,216,0.5);
+  border-radius: 10px;
+  backdrop-filter:blur(10px);
+}

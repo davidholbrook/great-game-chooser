@@ -7,7 +7,7 @@ body{
 }
 
 .gamelist{
-  background: rgba(216,216,216,0.8);
+  background: rgba(216,216,216,0.6);
   border-radius: 10px;
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(8px);
 }

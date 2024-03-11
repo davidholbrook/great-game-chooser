@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 body{
-  background: #333333;
+  background: rebeccapurple url('/img/cutout.svg');
 }
 
 .gamelist{
-  background: rgba(216,216,216,0.5);
+  background: rgba(216,216,216,0.8);
   border-radius: 10px;
   backdrop-filter:blur(10px);
 }

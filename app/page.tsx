@@ -2,6 +2,7 @@
 
 import react, {useState, useEffect} from 'react';
 import Icons from './utils/icons';
+import PlatformColoring from './utils/platformColoring'
 
 export default function Home() {
 
@@ -26,7 +27,6 @@ export default function Home() {
   }
 
   const deleteGame = (id:number) => {
-    console.log(id)
 		let newItems = items.filter((item:any) => item.id !== id);
 		setItems([...newItems]);
 	};
@@ -40,20 +40,7 @@ export default function Home() {
 		localStorage.setItem('games', JSON.stringify(items));
 	}, [items]);
 
-  const platformColoring = (platform:string) => {
-    switch(platform){
-      case("Xbox"):
-        return <span className="bg-[#107C10] absolute right-0 top-0 h-full px-5 pt-2 text-white">Xbox</span>
-      case("Playstation"):
-        return <span className="bg-[#2E6DB4] absolute right-0 top-0 h-full px-5 pt-2 text-white">Playstation</span>
-      case("Nintendo"):
-        return <span className="bg-[#E60012] absolute right-0 top-0 h-full px-5 pt-2 text-white">Nintendo</span>
-      case("PC"):
-        return <span className="bg-[#333333] absolute right-0 top-0 h-full px-5 pt-2 text-white">PC</span>
-      default:
-        return null;
-    }
-  }
+  
   
   return (
    <div className="container mx-auto">
@@ -64,7 +51,7 @@ export default function Home() {
           {Object.keys(items).map((key, i) => (
             <div className="flex items-center group" key={key}>
               <div className="bg-white border-black border mb-2 p-2 relative grow" >
-                {items[key].game}{platformColoring(items[key].platform)}
+                {items[key].game}{PlatformColoring(items[key].platform)}
               </div>
               <button type="button" onClick={() => deleteGame(items[key].id)} className="mb-2 ml-2 hidden group-hover:block"><Icons icon="delete" /><span className="hidden">Delete</span></button> 
             </div>

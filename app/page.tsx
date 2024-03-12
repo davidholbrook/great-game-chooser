@@ -15,16 +15,21 @@ export default function Home() {
     const name = formData.get("game-name") as string;
     const platform = formData.get("game-platform") as string;
 
-    console.log(platform)
-
     if(name){
       const newGame = {
+        id: items.length + 1,
         game: name,
         platform: platform
       }
       setItems([...items, newGame])
     }
   }
+
+  const deleteGame = (id:number) => {
+    console.log(id)
+		let newItems = items.filter((item:any) => item.id !== id);
+		setItems([...newItems]);
+	};
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('games') || '""') ;
@@ -57,8 +62,11 @@ export default function Home() {
         <h2 className="text-black font-bold drop-shadow-sm text-3xl pt-5 mb-8 text-center">Your Game List</h2>
         <div className="w-2/3 mx-auto mt-5">
           {Object.keys(items).map((key, i) => (
-            <div className="bg-white border-black border mb-2 p-2 relative" key={key}>
-              {items[key].game} {platformColoring(items[key].platform)}
+            <div className="flex items-center group" key={key}>
+              <div className="bg-white border-black border mb-2 p-2 relative grow" >
+                {items[key].game}{platformColoring(items[key].platform)}
+              </div>
+              <button type="button" onClick={() => deleteGame(items[key].id)} className="mb-2 ml-2 hidden group-hover:block"><Icons icon="delete" /><span className="hidden">Delete</span></button> 
             </div>
           ))}
           <form className="relative addGame flex items-center" onSubmit={(e) => handleAddGame(e)}>

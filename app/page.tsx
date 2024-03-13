@@ -3,11 +3,15 @@
 import react, {useState, useEffect} from 'react';
 import Icons from './utils/icons';
 import PlatformColoring from './utils/platformColoring'
+import PlatformBigColoring from './utils/platformBigColoring'
 
 export default function Home() {
 
   const [items, setItems]:any = useState([])
+  const [gameData, setGameData]:any = useState()
+  const [nextGame, setNextGame]:any = useState()
 
+  // GameList logic
   function handleAddGame(e:any){
     e.preventDefault();
     const form = document.querySelector(".addGame") as HTMLFormElement;
@@ -40,11 +44,76 @@ export default function Home() {
 		localStorage.setItem('games', JSON.stringify(items));
 	}, [items]);
 
-  
-  
+  // Next Game logic
+  const nextGameHandler = () => {
+    const number  = items.length;
+    const rando = Math.floor(Math.random() * number);
+    console.log(rando)
+    setNextGame(rando);
+    getGamesApi(rando);
+  }
+
+  async function getGamesApi(rando:number) {
+    const game = items[rando].game;
+    const api  = `https://api.rawg.io/api/games?search=${game}&key=${process.env.NEXT_PUBLIC_API_KEY}`
+
+    let gameResults:any = []
+    await hitAPI(api).then((data) =>  gameResults.push(data));
+    gameResults = gameResults[0].results[0];
+    await setGameData(gameResults);
+
+    return gameResults 
+  }
+
+  async function hitAPI(url: string): Promise<any> {
+    const response = await fetch(url, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
+    });
+
+    return response.json();
+  }
+
+  useEffect(() => {
+    if(gameData !== undefined) {
+      document.body.style.background = `url('${gameData.background_image}') no-repeat center / cover`;
+      let el:any = document.createElement('div');
+      el.classList.add('purpleRain');
+      document.body.insertAdjacentElement('afterbegin', el)
+    }
+  }, [gameData]);
+
+  const screenshotRandomize = () => {
+    if(gameData !== undefined ){
+      const number = gameData.short_screenshots.length;
+      const rando = Math.floor(Math.random() * number);
+      return gameData.short_screenshots[rando].image;
+    }
+  }
+
+ screenshotRandomize()
+
   return (
    <div className="container mx-auto">
-    <h1 className="text-[#fffdfb] text-center font-bold text-3xl pt-14 mb-8">Great Game Chooser</h1>
+    <h1 className="text-[#fffdfb] text-center font-bold text-3xl pt-14 mb-8">Great Game Chooser</h1> 
+    {gameData !== undefined ? 
+      <div className="nextgame p-10 mb-10 bg-cover min-h-[30vh]" style={{background: `rebeccapurple url('${screenshotRandomize()}') no-repeat center / cover`}}
+        >
+        {Object.keys(items).filter((item, i) => i === nextGame).map((utl:any) => (
+          <div className="min-h-[20vh] relative" key={items[utl].id}>
+            <h2 className="text-white text-5xl font-bold">{items[utl].game}</h2>
+            {PlatformBigColoring(items[utl].platform)}
+          </div>
+        ))}
+        </div>
+      : null}
       <div className="gamelist min-h-[60vh]">
         <h2 className="text-black font-bold drop-shadow-sm text-3xl pt-5 mb-8 text-center">Your Game List</h2>
         <div className="w-2/3 mx-auto mt-5">
@@ -67,7 +136,7 @@ export default function Home() {
             <button type="submit" className="bg-gray-300 px-3 py-2 border-l border-black absolute right-[2px] top-[17px]"><Icons icon="add" /><span className="hidden">Add Game</span></button>
           </form>
           <div className="flex justify-center mt-10">
-            <button type="button" className="bg-gray-300 py-3 px-5 uppercase font-bold cursor">Choose next game</button>
+            <button type="button" onClick={(e) => nextGameHandler()} name="next-game" className="bg-gray-300 py-3 px-5 uppercase font-bold cursor">Choose next game</button>
           </div>
         </div>
       </div>

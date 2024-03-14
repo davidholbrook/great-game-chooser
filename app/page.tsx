@@ -83,7 +83,8 @@ export default function Home() {
 
   useEffect(() => {
     if(gameData !== undefined) {
-      document.body.style.background = `url('${gameData.background_image}') no-repeat center / cover`;
+      document.body.style.background = `#000000 url('${gameData.background_image}') no-repeat center / cover`;
+      document.body.style.height = "100vh"
       let el:any = document.createElement('div');
       el.classList.add('purpleRain');
       document.body.insertAdjacentElement('afterbegin', el)
@@ -103,8 +104,9 @@ export default function Home() {
   return (
    <div className="container mx-auto">
     <h1 className="text-[#fffdfb] text-center font-bold text-3xl pt-14 mb-8">Great Game Chooser</h1> 
+    <div className="wrapper">
     {gameData !== undefined ? 
-      <div className="nextgame p-10 mb-10 bg-cover min-h-[30vh]" style={{background: `rebeccapurple url('${screenshotRandomize()}') no-repeat center / cover`}}
+      <div className="nextgame p-10 mb-10 bg-cover min-h-[30vh] md:min-h-[10vh]" style={{background: `rebeccapurple url('${screenshotRandomize()}') no-repeat center / cover`}}
         >
         {Object.keys(items).filter((item, i) => i === nextGame).map((utl:any) => (
           <div className="min-h-[20vh] relative" key={items[utl].id}>
@@ -139,6 +141,7 @@ export default function Home() {
             <button type="button" onClick={(e) => nextGameHandler()} name="next-game" className="bg-gray-300 py-3 px-5 uppercase font-bold cursor">Choose next game</button>
           </div>
         </div>
+      </div>
       </div>
    </div>
   )

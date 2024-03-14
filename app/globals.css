@@ -6,6 +6,18 @@ body{
   background: rebeccapurple url('/img/cutout.svg');
 }
 
+@media (min-width: 992px){
+  .wrapper{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .gamelist, .nextgame{
+    width: 35vw;
+  }
+}
+
 .gamelist{
   background: rgba(216,216,216,0.3);
   border-radius: 10px;
@@ -20,7 +32,7 @@ body{
 }
 
 .purpleRain{
-  background: rgb(102, 51, 153, 0.2);
+  background: rgba(0, 0, 0, 0.3);
   display: fixed;
   position: absolute;
   top: 0;

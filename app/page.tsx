@@ -48,7 +48,6 @@ export default function Home() {
   const nextGameHandler = () => {
     const number  = items.length;
     const rando = Math.floor(Math.random() * number);
-    console.log(rando)
     setNextGame(rando);
     getGamesApi(rando);
   }
@@ -83,11 +82,14 @@ export default function Home() {
 
   useEffect(() => {
     if(gameData !== undefined) {
-      document.body.style.background = `#000000 url('${gameData.background_image}') no-repeat center / cover`;
+      document.body.style.background = `#000000 url("${gameData.background_image}") no-repeat center / cover`;
       document.body.style.height = "100vh"
-      let el:any = document.createElement('div');
-      el.classList.add('purpleRain');
-      document.body.insertAdjacentElement('afterbegin', el)
+      const purpleRain = document.querySelector('.purpleRain');
+      if(!purpleRain){
+        let el:any = document.createElement('div');
+        el.classList.add('purpleRain');
+        document.body.insertAdjacentElement('afterbegin', el)
+      }
     }
   }, [gameData]);
 
@@ -99,26 +101,34 @@ export default function Home() {
     }
   }
 
- screenshotRandomize()
+  function toTitleCase(str:string) {
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }
+  
 
   return (
    <div className="container mx-auto">
     <h1 className="text-[#fffdfb] text-center font-bold text-3xl pt-14 mb-8">Great Game Chooser</h1> 
-    <div className="wrapper">
+    <div className={(gameData !== undefined) ? `wrapper`: ``}>
     {gameData !== undefined ? 
       <div className="nextgame p-10 mb-10 bg-cover min-h-[30vh] md:min-h-[10vh]" style={{background: `rebeccapurple url('${screenshotRandomize()}') no-repeat center / cover`}}
         >
         {Object.keys(items).filter((item, i) => i === nextGame).map((utl:any) => (
           <div className="min-h-[20vh] relative" key={items[utl].id}>
-            <h2 className="text-white text-5xl font-bold">{items[utl].game}</h2>
+            <h2 className="text-white text-5xl font-bold textShadow">{toTitleCase(items[utl].game)}</h2>
             {PlatformBigColoring(items[utl].platform)}
           </div>
         ))}
         </div>
       : null}
-      <div className="gamelist min-h-[60vh]">
-        <h2 className="text-black font-bold drop-shadow-sm text-3xl pt-5 mb-8 text-center">Your Game List</h2>
-        <div className="w-2/3 mx-auto mt-5">
+      <div className="gamelist min-h-[60vh] pb-1">
+        <h2 className="text-purple-900 font-bold drop-shadow-sm text-3xl pt-5 mb-8 text-center">Your Game List</h2>
+        <div className="w-2/3 mx-auto my-5">
           {Object.keys(items).map((key, i) => (
             <div className="flex items-center group" key={key}>
               <div className="bg-white border-black border mb-2 p-2 relative grow" >
@@ -137,8 +147,8 @@ export default function Home() {
           </select>
             <button type="submit" className="bg-gray-300 px-3 py-2 border-l border-black absolute right-[2px] top-[17px]"><Icons icon="add" /><span className="hidden">Add Game</span></button>
           </form>
-          <div className="flex justify-center mt-10">
-            <button type="button" onClick={(e) => nextGameHandler()} name="next-game" className="bg-gray-300 py-3 px-5 uppercase font-bold cursor">Choose next game</button>
+          <div className="flex justify-center my-10">
+            <button type="button" onClick={(e) => nextGameHandler()} name="next-game" className="bg-gray-800 text-white py-3 px-5 uppercase font-bold rounded-xl shadow-xl bg-gradient-to-b from-purple-500 to-purple-900 cursor">Choose next game</button>
           </div>
         </div>
       </div>

@@ -15,10 +15,6 @@ const config: Config = {
       },
       colors: {
         "primary": "#FF8535",
-        "ps": "#2E6DB4",
-        "xbox": "#107C10",
-        "nintendo": "#E60012",
-        "pc": "#333333",
         "deleteRed": "#B42E2E",
       },
     },

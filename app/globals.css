@@ -20,3 +20,16 @@ body{
 
   font-weight: bolder;
 }
+
+.BGplaystation{
+  background-color: #2E6DB4;
+}
+.BGxbox{
+  background-color: #107C10;
+}
+.BGnintendo {
+  background-color: #E60012;
+}
+.BGpc{
+  background-color: #333333
+}

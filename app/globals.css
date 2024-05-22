@@ -3,52 +3,9 @@
 @tailwind utilities;
 
 body{
-  background: rebeccapurple url('/img/cutout.svg');
+  background: #000000;
 }
 
-@media (min-width: 992px){
-  .wrapper{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .wrapper .gamelist, .wrapper .nextgame{
-    width: 35vw;
-  }
-}
-
-@media (max-width: 650px){
-  .gamelist, .nextgame{
-    width:94%;
-    margin: 2rem 1rem;
-  }
-}
-
-.gamelist{
-  background: rgba(216,216,216,0.3);
-  border-radius: 10px;
-  backdrop-filter:blur(8px);
-  z-index: 1;
-}
-
-.nextgame{
-  border-radius: 10px;
-  background: rebeccapurple;
-  z-index: 1;
-}
-
-.purpleRain{
-  background: rgba(0, 0, 0, 0.7);
-  display: fixed;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-}
-
-.textShadow{
-  text-shadow: 2px 2px 2px black;
+.dshadows{
+  box-shadow: 0.3rem 0.3rem 0 0.2rem rgba(226,106,28,0.3) ;
 }

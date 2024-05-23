@@ -77,7 +77,7 @@ export const AddGame = () => {
           </button>
         </form>
         <div className="flex justify-between mt-6">
-      <button type="button" className="border-4 border-gray-900 font-bold rounded-md px-3 py-1">Add New Game</button>
+      <button type="button" className="border-4 border-gray-900 font-bold rounded-md px-3 py-1">Back</button>
     </div>
       </div>
     </div>

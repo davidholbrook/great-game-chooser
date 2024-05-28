@@ -1,30 +1,55 @@
-import React from "react";
-import Image from "next/image";
+"use client"
+import React, {useState} from "react";
+import Link from "next/link"
+
 import Icons from "../utils/icons";
+import {useGame} from '../_context/context'
 
 export const AddGame = () => {
+  const {items, setItems} = useGame();
+  const [toast, setToast] = useState('')
+  function handleAddGame(e:any) {
+    e.preventDefault();
+
+    const form = document.querySelector(".addGameForm") as HTMLFormElement;
+
+    const formData = new FormData(form);
+    const name = formData.get("game-name") as string;
+    const platform = formData.get("game-platform") as string;
+    const randonum:number = Math.round(new Date().getTime() / 1000);
+
+    if(name){
+      const newGame:any = {
+        id: randonum,
+        game: name,
+        platform: platform
+      }
+      if(items.length > 0){ setItems([...items, newGame]) } else {setItems([newGame])}
+
+      setToast(name)
+      setTimeout(() => {
+        setToast('')
+        form.reset();
+      }, 3000)
+      
+    }
+  }
+
   return (
-    <div className="container mx-auto flex flex-col justify-center items-center min-h-screen">
-      <Image
-        src="/img/logo.svg"
-        alt="Great Game Chooser logo"
-        width={460}
-        height={50}
-        className="mb-5"
-      />
-      <div className="w-10/12 bg-[#CCCCCC] py-5 px-20 dshadows">
+    <>
         <span className="flex justify-center items-baseline pb-5">
           <h2 className="uppercase font-bold text-3xl inline">Add Game</h2>
           <p className="pl-2 inline font-light">
            What is your next obsession?
           </p>
         </span>
-        <form action="post" className="relative">
+        {(toast !== '') ? <div className="bg-green-500 p-2 text-xs uppercase font-bold mb-3 toastShadow toastAnimate">{toast} was added to your game list</div> : <div className="h-10"></div>}
+        <form action="post" className="relative addGameForm" onSubmit={(e) => handleAddGame(e)}>
           <label className="text-xs uppercase">
             Game Name
             <input
               type="text"
-              name="gameName"
+              name="game-name"
               className="block w-full border border-gray-400 p-2 text-base formshadow mb-5"
             />
           </label>
@@ -34,8 +59,8 @@ export const AddGame = () => {
               <input
                 type="radio"
                 id="playstation"
-                name="platform"
-                value="Playstation"
+                name="game-platform"
+                value="playstation"
               />
               <div className="pfBox BGplaystation flex flex-col items-center p-4 border border-gray-700">
                 {<Icons icon="playstation" />}
@@ -43,7 +68,7 @@ export const AddGame = () => {
               </div>
             </label>
             <label className="pfRadio">
-              <input type="radio" id="xbox" name="platform" value="Xbox" />
+              <input type="radio" id="xbox" name="game-platform" value="xbox" />
               <div className="pfBox BGxbox flex flex-col items-center p-4 border border-gray-700">
                 {<Icons icon="xbox" />}
                 <span className="mt-1">Xbox</span>
@@ -53,8 +78,8 @@ export const AddGame = () => {
               <input
                 type="radio"
                 id="nintendo"
-                name="platform"
-                value="Nintendo"
+                name="game-platform"
+                value="nintendo"
               />
               <div className="pfBox BGnintendo flex flex-col items-center p-4 border border-gray-700">
                 {<Icons icon="nintendo" />}
@@ -62,7 +87,7 @@ export const AddGame = () => {
               </div>
             </label>
             <label className="pfRadio">
-              <input type="radio" id="pc" name="platform" value="PC" />
+              <input type="radio" id="pc" name="game-platform" value="pc" />
               <div className="pfBox BGpc flex flex-col items-center p-4 border border-gray-700">
                 {<Icons icon="pc" />}
                 <span className="mt-4">Gaming PC</span>
@@ -70,17 +95,16 @@ export const AddGame = () => {
             </label>
           </div>
           <button
-            type="button"
+            type="submit"
             className="border-4 border-gray-900 bg-gray-900 text-white font-bold rounded-md px-3 py-1 mt-6 absolute right-1"
           >
             Add Game
           </button>
         </form>
         <div className="flex justify-between mt-6">
-      <button type="button" className="border-4 border-gray-900 font-bold rounded-md px-3 py-1">Back</button>
+      <Link href="/"><button type="button" className="border-4 border-gray-900 font-bold rounded-md px-3 py-1">Back</button></Link>
     </div>
-      </div>
-    </div>
+    </>
   );
 };
 

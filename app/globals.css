@@ -16,6 +16,10 @@ body{
   transition: all 320ms ease-in-out;
 }
 
+.toastShadow{
+  box-shadow: 0.2rem 0.2rem 0 0.1rem rgba(34, 197, 94, 0.2);
+}
+
 .formshadow:focus{
   border: 1px #000000 solid;
   box-shadow: 0.5rem 0.5rem 0 0.1rem rgba(0,0,0,0.8);
@@ -33,16 +37,16 @@ body{
   font-weight: bolder;
 }
 
-.BGplaystation, .pfRadio [type=radio]:checked + .BGplaystation {
+.BGplaystation, .pfRadio [type=radio]:checked + .BGplaystation, .pfRadio:focus + .BGplaystation {
   background-color: #2E6DB4;
 }
-.BGxbox, .pfRadio [type=radio]:checked + .BGxbox {
+.BGxbox, .pfRadio [type=radio]:checked + .BGxbox, .pfRadio:focus + .BGxbox {
   background-color: #107C10;
 }
-.BGnintendo, .pfRadio [type=radio]:checked + .BGnintendo {
+.BGnintendo, .pfRadio [type=radio]:checked + .BGnintendo, .pfRadio:focus + .BGnintendo {
   background-color: #E60012;
 }
-.BGpc, .pfRadio [type=radio]:checked + .BGpc {
+.BGpc, .pfRadio [type=radio]:checked + .BGpc, .pfRadio:focus + .BGpc{
   background-color: #333333
 }
 

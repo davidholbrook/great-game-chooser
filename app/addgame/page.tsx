@@ -27,9 +27,9 @@ export const AddGame = () => {
       if(items.length > 0){ setItems([...items, newGame]) } else {setItems([newGame])}
 
       setToast(name)
+      form.reset();
       setTimeout(() => {
         setToast('')
-        form.reset();
       }, 3000)
       
     }

@@ -2,7 +2,7 @@
 import React, {useState} from "react";
 import Link from "next/link"
 
-import Icons from "../utils/icons";
+import Icons from "../_utils/icons";
 import {useGame} from '../_context/context'
 
 export const AddGame = () => {

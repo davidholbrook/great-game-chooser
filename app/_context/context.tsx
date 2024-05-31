@@ -5,13 +5,13 @@ import { createContext, useContext, useState, useEffect } from 'react'
 const GameContext = createContext(undefined);
 
 export function GameProvider({children}) {
-    const [items, setItems] = useState({})
+    const [items, setItems] = useState([])
 
     // The syncing magic
     useEffect(() => {
-        const items = JSON.parse(localStorage.getItem('games') || '""') ;
-        if (items) setItems(items);
-    }, []);
+        const localItems = JSON.parse(localStorage.getItem('games') || '""') ;
+        if (items.length == 0) setItems(localItems);
+	}, [items]);
 
     useEffect(() => {
         if(items.length > 0){

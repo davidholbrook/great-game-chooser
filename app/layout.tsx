@@ -9,7 +9,7 @@ import { GameProvider } from './_context/context';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Library | Great Game Chooser",
+  title: "Great Game Chooser",
   description: "Pick your next great video game",
 };
 

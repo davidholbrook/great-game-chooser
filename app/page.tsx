@@ -32,7 +32,7 @@ return(
       ))}
       <div className="flex justify-between mt-6">
         <Link href="/addgame"><button type="button" className="border-4 border-gray-900 font-bold rounded-md px-3 py-1">Add New Game</button></Link>
-        <button type="button" className="border-4 border-gray-900 bg-gray-900 text-white font-bold rounded-md px-3 py-1">Choose Random Game</button>
+        <Link href="/chooser"><button type="button" className="border-4 border-gray-900 bg-gray-900 text-white font-bold rounded-md px-3 py-1">Choose Random Game</button></Link>
     </div>
   </>
   )
